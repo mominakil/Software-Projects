@@ -23,7 +23,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyACFK3YuJFm5YlXXiiJyAiegIJK9_LStfI"/>
+            android:value="APIKEY"/>
 
         <!-- [START fcm_default_icon] -->
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
