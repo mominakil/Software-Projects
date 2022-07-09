@@ -1,0 +1,86 @@
+﻿@model PolyGames.Models.ALLInOneModel
+
+@{
+    ViewBag.Title = "UserPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+<h2><u><b>User Page</b></u></h2>
+<br />
+<br />
+<br />
+
+<h2>Your Games</h2>
+<table class="table table-bordered table-responsive" style="width:50%">
+    <tr class="text-center">
+        <th>Team Name</th>
+        <th>Click to view game/edit</th>
+        <th>Check to hide your name from public</th>
+    </tr>
+    @using (Html.BeginForm("saveGamesData", "Home", FormMethod.Post))
+    {
+
+        var i = 0;
+        @Html.HiddenFor(modelItem => modelItem.user.EditIndex)
+        for (i = 0; i < Model.games.Items.Count(); i++)
+        {
+            <tr>
+                <td hidden>@Html.HiddenFor(modelItem => modelItem.games.Items[i].GroupId)</td>
+                <td>@Html.DisplayFor(modelItem => modelItem.games.Items[i].GroupName)</td>
+                <td onclick="location.href = '@Url.Action("Game", "Home", new { Id = Model.games.Items[i].Id })'">
+                    @if (Model.games.Items[i].GameName == null)
+                    {
+                        <div id="mydiv">
+                            &nbsp; @Html.ActionLink("Add a Game", "AddGame", new { GroupId = Model.games.Items[i].GroupId })
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="mydiv">
+                            &nbsp; @Html.ActionLink(Model.games.Items[i].GameName, "Game", new { Id = Model.games.Items[i].Id })
+                        </div>
+                    }
+                </td>
+                <td>@Html.EditorFor(modelItem => modelItem.games.Items[i].IsHidden)</td>
+            </tr>
+        }
+            <tr>
+                <td colspan="4"><input type="submit" value="Save" name="Save" class="btn btn-default" />&nbsp; &nbsp;@ViewBag.SaveMessage</td> 
+            </tr>
+    }
+</table>
+
+<br />
+<br />
+<div>
+    @using (Html.BeginForm("updatePassword", "Home", FormMethod.Post, new { encType = "multipart/form-data" }))
+    {
+        <h2>Change Password</h2>
+        <div class="form-group">
+            @Html.LabelFor(model => model.user.Password, "Old Password", htmlAttributes: new { @class = "control-label col-md-2 white-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.user.Password, new { @class = "form-control", required = "required" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.user.Password, "Enter New Password", htmlAttributes: new { @class = "control-label col-md-2 white-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.passwordCheck[0], new { @class = "form-control", required = "required" })
+            </div>
+            @Html.LabelFor(model => model.user.Password, "Re-Enter New Password", htmlAttributes: new { @class = "control-label col-md-2 white-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.passwordCheck[1], new { @class = "form-control", required = "required" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" name="Submit" class="btn btn-default" />
+                &nbsp; &nbsp; @ViewBag.PasswordUpdated
+            </div>
+        </div>
+    }
+</div>
+
+
+

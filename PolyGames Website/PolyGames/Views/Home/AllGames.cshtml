@@ -1,0 +1,40 @@
+﻿@model PolyGames.Models.Games
+@{
+    ViewBag.Title = "AllGames";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+<h2>All BIS Video Games</h2>
+
+@using (Html.BeginForm("AllGames", "Home", FormMethod.Post))
+{
+    var i = 0;
+<table>
+    @for (i = 0; i < Model.Items.Count(); i++)
+    {
+
+    <tr onclick="location.href = '@Url.Action("Game", "Home", new { Id = Model.Items[i].Id })'">
+
+
+        <td><img src="@Url.Content(@Model.Items[i].GamePictures[0].pictureFilePath)" class="gameImage" alt="" height=100 width=100/></td>
+        <td style="border:medium">
+
+            <div id="mydiv">
+                &nbsp; @Html.ActionLink(Model.Items[i].GameName, "Game", new { Id = Model.Items[i].Id })
+            </div>
+            &nbsp; @Html.DisplayFor(m => m.Items[i].Description)&nbsp;&nbsp;
+
+        </td>
+    </tr>
+        <tr class="ab"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        //This is an empty row to create a space in between each game
+
+        }
+    </table>
+
+
+
+
+}

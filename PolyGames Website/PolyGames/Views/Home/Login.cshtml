@@ -1,0 +1,40 @@
+﻿@model PolyGames.Models.User
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+@ViewBag.LogOutMessage
+
+<h2>Login</h2>
+@using (Html.BeginForm("Login", "Home", FormMethod.Post, new { encType = "multipart/form-data" }))
+{
+    <br />
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, "Email", htmlAttributes: new { @class = "control-label col-md-2 white-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password, "Password", htmlAttributes: new { @class = "control-label col-md-2 white-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(model => model.Password, new { @class = "form-control", required = "required" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Login" name="Login" class="btn btn-default" />
+            &nbsp; &nbsp; @ViewBag.Message
+        </div>
+    </div>
+    <br />
+
+
+}

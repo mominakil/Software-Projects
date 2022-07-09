@@ -1,0 +1,81 @@
+﻿@model PolyGames.Models.Games
+@{
+    ViewBag.Title = "Home Page";
+}
+<style>
+.carousel-inner > .item > img {
+ width: 900px;
+ height: 650px !important;
+
+}
+</style>
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+<img src="~/NewImages/polygameslargewithwhiteboxpng.png" height=150 width=150 style="float:left; margin-top:-2.5em" />
+<h1>Sask Poly Games</h1>
+<br />
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:60%; margin-left:auto; margin-right:auto">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        @for (var i = 0; i < Model.Items.Count(); i++)
+        {
+            <li data-target="#myCarousel" data-slide-to= @i + 1></li>
+        }
+    </ol>
+    
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="~/NewImages/polygameslargewithwhiteboxpng.png"  />
+
+            <div class="carousel-caption">
+                <h3>Welcome to Sask Poly Games! A repository of video games developed by BIS students</h3>
+            </div>
+        </div>
+
+        <!--<div class="item">
+            <img src="~/NewImages/upload.jpg"  />
+
+            <div class="carousel-caption">
+                <h3>Don't forget to showcase your super awesome game! Upload it via the Add A Game page</h3>-->
+                @*<button type="button" onclick="location.href='@Url.Action("AddGame", "Home")'" class="btn btn-primary">Upload Your Game</button>*@
+            <!--</div>
+        </div>-->
+
+        @*loop through all games and display their picture in the carousel with clickable game name*@
+        @for (var i = 0; i < Model.Items.Count(); i++)
+        {
+            <div class="item">
+                <img src="@Url.Content(@Model.Items[i].GamePictures[0].pictureFilePath)"  />
+
+                <div class="carousel-caption">
+                    <button type="button" onclick="location.href='@Url.Action("Game", "Home",  new { Id = @Model.Items[i].Id })'" class="btn btn-primary">Play @Model.Items[i].GameName Now!</button>
+                </div>
+            </div>
+        }
+
+
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<br />
+<br />
+
+
+
+
+
+

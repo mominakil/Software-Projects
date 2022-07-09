@@ -1,0 +1,218 @@
+﻿@model PolyGames.Models.Game
+
+@{
+    ViewBag.Title = "Game";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+<body class="gameBody">
+
+    @using (Html.BeginForm("Game", "Home", FormMethod.Post, new { encType = "multipart/form-data" }))
+    {
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.GroupId)
+        @*@Model.originalNumberOfMembers = Model.groupMembers.Count;*@
+        @ViewBag.Message
+
+        var isUserMatch = false;
+
+        if (Session["Email"] != null && Session["Password"] != null)
+        {
+            for (var i = 0; i < Model.groupMembers.Count; i++)
+            {
+                if ((int)Session["MemberId"] == Model.groupMembers[i].memberId)
+                {
+                    isUserMatch = true;
+                }
+            }
+        }
+
+
+        //Try*******************************************************
+        if (Session["MemberId"] != null)
+        {
+
+            if (isUserMatch == true && (bool)Session["IsActive"] == true || (bool)Session["IsAdmin"] == true)
+            {
+                if (!Model.IsEditable)
+                {
+                    <h1>@Model.GroupName</h1>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td rowspan="2">
+                                <video style="width:100%; height:auto;" controls autoplay>
+                                    <source src="@Url.Content(@Model.GameVideos[0].videoFilePath)" type="video/mp4" />
+                                </video>
+                            </td>
+                            <td>
+                                <h4><b>Game Name:</b></h4> <p>@Model.GameName</p>
+                                <h4><b>Year:</b></h4><p>@Model.Year</p><br />
+                                <h4><b>Game Description:</b></h4><p>@Model.Description</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4><b>Development Team: </b></h4>
+                                @foreach (var item in Model.groupMembers)
+                                {
+                                    if (item.isHidden == false)
+                                    {
+                                        //Implement IsHidden property for student name
+                                        <p>@item.studentName, @item.studentRole</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@item.studentName, @item.studentRole <b>&nbsp;&nbsp;&nbsp;(Hidden)</b></p>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @foreach (var item in Model.GamePictures)
+                                {
+                                    @*<a class="image-link" href="@Url.Content(@item.pictureFilePath)">*@
+                                    <img src="@Url.Content(@item.pictureFilePath)" alt="" class="gameImage" height=100 width=100 />@*</a>*@
+                                }
+                            </td>
+                        </tr>
+                    </table>
+
+                    <h2><a href="@Url.Content(@Model.executableFilePath)" download>Download Game and Play Now!</a></h2>
+
+                    <h4>@Html.ActionLink("Edit", "GameEdit", new { id = Model.Id })</h4>
+                    <h4>@Html.ActionLink("Delete", "GameDelete", new { id = Model.Id, groupId = Model.GroupId })</h4>
+                }
+                else
+                {
+                    @Html.LabelFor(model => model.GroupName, "Team Name: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.GroupName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <td rowspan="2">
+                                <video style="width: 100%; height: auto;" controls autoplay>
+                                    <source src="@Url.Content(@Model.GameVideos[0].videoFilePath)" type="video/mp4" />
+                                </video>
+
+                                @Html.LabelFor(model => model.videoUpload, "Upload new video: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.TextBoxFor(model => model.videoUpload, new { type = "file", @class = "input-file", accept = "video/*" })
+                            </td>
+                            <td style="width:1000px">
+                                <h4><b>@Html.LabelFor(model => model.GameName, "Game Name: ", htmlAttributes: new { @class = "control-label col-md-2" })</b></h4>
+                                <p>@Html.EditorFor(model => model.GameName, new { htmlAttributes = new { @class = "form-control", required = "required" } })</p><br />
+
+                                <h4><b>@Html.LabelFor(model => model.Year, "Year: ", htmlAttributes: new { @class = "control-label col-md-2" })</b></h4>
+                                <p>@Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control", required = "required" } })</p>
+
+                                <h4><b>@Html.LabelFor(model => model.Description, "Description: ", htmlAttributes: new { @class = "control-label col-md-2" })</b></h4>
+                                <p>@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", required = "required" } })</p><br />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4><b>Development Team: </b></h4>
+
+                                @for (var i = 0; i < Model.groupMembers.Count; i++)
+                                {
+                                    <p>
+                                        @Html.LabelFor(model => model.groupMembers[i].studentName, "Group Member: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.groupMembers[i].studentName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+
+                                        @Html.LabelFor(model => model.groupMembers[i].studentRole, "Member Role: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.groupMembers[i].studentRole, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                        @Html.HiddenFor(model => model.groupMembers[i].memberId)
+                                    </p><br />
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @foreach (var item in Model.GamePictures)
+                                {
+                                    @*<a class="image-link" href="@Url.Content(@item.pictureFilePath)">*@
+                                    <img src="@Url.Content(@item.pictureFilePath)" alt="" class="gameImage" height=100 width=100 />@*</a>*@
+                                }
+                                @Html.LabelFor(model => model.picturesUpload, "Upload new pictures: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.TextBoxFor(model => model.picturesUpload, new { type = "file", @class = "input-file", multiple = "true", accept = "image/*" })
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+
+                    @Html.LabelFor(model => model.executableUpload, "Upload new executable: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.TextBoxFor(model => model.executableUpload, new { type = "file", @class = "input-file", accept = ".exe" })
+
+                    <br />
+                    <input type="submit" value="Save" name="Save" class="btn btn-link" new { id=Model.Id } />
+                    <input type="submit" value="Cancel" name="Cancel" class="btn btn-link" />
+                }
+            }
+        }
+        else
+        {
+            <h1>@Model.GroupName</h1>
+            <table class="table table-bordered">
+                <tr>
+                    <td rowspan="2">
+                        <video style="width:100%; height:auto;" controls autoplay>
+                            <source src="@Url.Content(@Model.GameVideos[0].videoFilePath)" type="video/mp4" />
+                        </video>
+                    </td>
+                    <td>
+                        <h4><b>Game Name:</b></h4> <p>@Model.GameName</p>
+                        <h4><b>Year:</b></h4><p>@Model.Year</p><br />
+                        <h4><b>Game Description:</b></h4><p>@Model.Description</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4><b>Development Team: </b></h4>
+                        @foreach (var item in Model.groupMembers)
+                        {
+                            if (item.isHidden == false)
+                            {
+                                //Implement IsHidden property for student name-Updated
+                                <p>@item.studentName, @item.studentRole</p>
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @foreach (var item in Model.GamePictures)
+                        {
+                            @*<a class="image-link" href="@Url.Content(@item.pictureFilePath)">*@
+                            <img src="@Url.Content(@item.pictureFilePath)" alt="" class="gameImage" height=100 width=100 />@*</a>*@
+                        }
+                    </td>
+                </tr>
+            </table>
+            <h2><a href="@Url.Content(@Model.executableFilePath)" download>Download Game and Play Now!</a></h2>
+        }
+
+
+        <br />
+        <br />
+        //Try*******************************************************
+
+
+        //IF page is first loading set it up as below (user hasn't clicked Edit button yet)
+    }
+</body>
+
+@*popup to enlarge a picture when you click on it*@
+<script>
+    $(document).ready(function () {
+        $('.gameBody img').each(function () {
+            var currentImage = $(this);
+            currentImage.wrap("<a class='image-link' href='" + currentImage.attr("src") + "'</a>");
+        });
+        $('.image-link').magnificPopup({ type: 'image' });
+    });
+</script>
+
+

@@ -1,0 +1,243 @@
+﻿@model PolyGames.Models.ALLInOneModel
+@{
+    ViewBag.Title = "AdminPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+<h2><u><b>AdminPage</b></u></h2>
+<br />
+<br />
+<div>
+    <h2>Create a Team Name</h2>
+    @using (Html.BeginForm("addGroup", "Home", FormMethod.Post, new { encType = "multipart/form-data" }))
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.groups.GroupName, "Temporary Group Name", htmlAttributes: new { @class = "control-label col-md-2 white-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.groups.GroupName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" name="Create" class="btn btn-default" />
+                &nbsp; &nbsp; @ViewBag.MessageAddGroup
+            </div>
+        </div>
+    }
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+@*Look into a way to make each section required but not required together*@
+@using (Html.BeginForm("addUser", "Home", FormMethod.Post, new { encType = "multipart/form-data" }))
+{
+    <h2>Add new user</h2>
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.user.Name, "Name", htmlAttributes: new { @class = "control-label col-md-2 white-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.user.Name, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.user.Email, "Email*", htmlAttributes: new { @class = "control-label col-md-2 white-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.user.Email, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.user.Password, "Temporary Password*", htmlAttributes: new { @class = "control-label col-md-2 white-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.user.Password, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.user.IsAdmin, "Is User Admin?", htmlAttributes: new { @class = "control-label col-md-2 white-label" })
+            <div class="col-md-2">
+                @Html.CheckBoxFor(model => model.user.IsAdmin)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.user.IsActive, "Is User Active?", htmlAttributes: new { @class = "control-label col-md-2 white-label" })
+            <div class="col-md-2">
+                @Html.CheckBoxFor(model => model.user.IsActive)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.user.RegistrationDate, "Registration Date", htmlAttributes: new { @class = "control-label col-md-2 white-label" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.user.RegistrationDate, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.groups.GroupId, "Assign Team", htmlAttributes: new { @class = "control-label col-md-2 white-label" })
+            <div class="col-md-2 black-label">
+                @Html.DropDownListFor(modelItem => modelItem.groups.GroupId, new SelectList(ViewBag.Grouplist, "GroupId", "GroupName"), new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" name="Save" class="btn btn-default" />
+                &nbsp; &nbsp; @ViewBag.Message
+            </div>
+        </div>
+    </div>
+}
+<br />
+<br />
+<br />
+
+
+<h2>Edit Users Information</h2>
+@*For Assigning a member to a group or team*@
+
+
+<table class="table table-bordered table-responsive">
+
+    @using (Html.BeginForm("getAllUsers", "Home", FormMethod.Post))
+    {
+        <tr class="black-label">
+            <td colspan="2"><b class="white-label">Filter By Registration Years: </b>@Html.DropDownListFor(modelItem => modelItem.filters.RegistrationYear, new SelectList(ViewBag.registrationYears), "All", new { @onchange = "this.form.submit();" })</td>
+            <td colspan="6"><b class="white-label">Filter By Team: </b>@Html.DropDownListFor(modelItem => modelItem.filters.GroupId, new SelectList(ViewBag.Grouplist, "GroupId", "GroupName"), "All", new { @onchange = "this.form.submit();" })</td>
+        </tr>
+        <tr class="text-center">
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Current Teams</th>
+            <th>Registration date</th>
+            <th>Is Active</th>
+            <th>Is Admin</th>
+            <th colspan="2">Controls</th>
+        </tr>
+
+        var i = 0;
+        @Html.HiddenFor(modelItem => modelItem.user.EditIndex)
+        for (i = 0; i < Model.user.Items.Count; i++)
+        {
+
+            if (!Model.user.Items[i].IsEditable)
+            {
+                <tr>
+                    <td hidden>@Html.HiddenFor(modelItem => modelItem.user.Items[i].MemberID)</td>
+                    <td>@Html.DisplayFor(modelItem => modelItem.user.Items[i].Name)</td>
+                    <td>@Html.DisplayFor(modelItem => modelItem.user.Items[i].Email)</td>
+                    <td>@Html.Raw("**************")</td>
+                    <td>
+                        @for (int m = 0; m < Model.user.Items[i].CurrentTeamName.GroupList.Count; m++)
+                        {
+                            @Html.DisplayFor(modelItem => modelItem.user.Items[i].CurrentTeamName.GroupList[m].GroupName)<br />
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => modelItem.user.Items[i].RegistrationDate)</td>
+                    <td>@Html.DisplayFor(modelItem => modelItem.user.Items[i].IsActive)</td>
+                    <td>@Html.DisplayFor(modelItem => modelItem.user.Items[i].IsAdmin)</td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "UserAccountEdit", new { id = Model.user.Items[i].MemberID }) |
+                        @Html.ActionLink("Delete", "DeleteUserAccount", new { id = Model.user.Items[i].MemberID })
+                    </td>
+                </tr>
+            }
+            else
+            {
+                var l = 0;
+                <tr class="black-label">
+                    <td hidden>@Html.HiddenFor(modelItem => modelItem.user.Items[i].MemberID)</td>
+                    <td>@Html.TextBoxFor(modelItem => modelItem.user.Items[i].Name)</td>
+                    <td>@Html.TextBoxFor(modelItem => modelItem.user.Items[i].Email)</td>
+                    <td>@Html.TextBoxFor(modelItem => modelItem.user.Items[i].Password)</td>
+                    <td>
+                        @for (l = 0; l < Model.user.Items[i].CurrentTeamName.GroupList.Count(); l++)
+                        {
+                            @Html.DropDownListFor(modelItem => modelItem.groups.GroupId,
+                           new SelectList(ViewBag.Grouplist, "GroupId", "GroupName"), Model.user.Items[i].CurrentTeamName.GroupList[l].GroupName,
+                           new { @onchange = "document.location.href = '/Home/UpdateTeam?id=' + this.options[this.selectedIndex].value + '&id2='+" + Model.user.Items[i].CurrentTeamName.GroupList[l].GroupId })
+
+                            <a href="@Url.Action("DeleteAssignedGroup", "Home", new {MemberId = Model.user.Items[i].MemberID, GroupId = Model.user.Items[i].CurrentTeamName.GroupList[l].GroupId })">Delete</a>
+
+                        }
+                            <br /><br /> @Html.DropDownListFor(modelItem => modelItem.groups.GroupId,
+                           new SelectList(ViewBag.Grouplist, "GroupId", "GroupName"), "*Assign New Group*",
+                           new { @onchange = "document.location.href = '/Home/AssignNewTeam?id=' + this.options[this.selectedIndex].value" })
+                    </td>
+                    @*<td>@Html.DropDownListFor(modelItem => modelItem.groups.GroupId, new SelectList(ViewBag.Grouplist, "GroupId", "GroupName")) </td>*@
+                    <td>@Html.EditorFor(modelItem => modelItem.user.Items[i].RegistrationDate)</td>
+                    <td>@Html.EditorFor(modelItem => modelItem.user.Items[i].IsActive)</td>
+                    <td>@Html.EditorFor(modelItem => modelItem.user.Items[i].IsAdmin)</td>
+
+                    <td>
+                        <input type="submit" value="Save" name="Save" class="btn btn-link" /> |
+                        <input type="submit" value="Cancel" name="Cancel" class="btn btn-link" />
+                    </td>
+                </tr>
+            }
+
+        }
+        if (Model.user.Items.Count == 0)
+        {
+            <tr style="text-align:center">
+                <td colspan="8"><h4><b>No Records to display</b></h4></td>
+            </tr>
+        }
+    }
+</table>
+
+<br />
+<br />
+<br />
+
+
+<h2>Games Information</h2>
+<table class="table table-bordered table-responsive">
+
+    <tr class="text-center">
+        <th>Group Name</th>
+        <th>Game Name</th>
+        <th>Year</th>
+        <th>Executable File Name</th>
+        <th>Executable File Size</th>
+    </tr>
+
+    @using (Html.BeginForm("getAllGames", "Home", FormMethod.Post))
+    {
+
+        var i = 0;
+        @*@Html.HiddenFor(modelItem => modelItem.user.EditIndex)*@
+        for (i = 0; i < Model.games.Items.Count; i++)
+        {
+            <tr>
+                <td hidden>@Html.HiddenFor(modelItem => modelItem.games.Items[i].Id)</td>
+                <td hidden>@Html.HiddenFor(modelItem => modelItem.games.Items[i].GroupId)</td>
+                <td hidden>@Html.HiddenFor(modelItem => modelItem.games.Items[i].executableId)</td>
+                <td>@Html.DisplayFor(modelItem => modelItem.games.Items[i].GroupName)</td>
+                <td>@Html.DisplayFor(modelItem => modelItem.games.Items[i].GameName)</td>
+                <td>@Html.DisplayFor(modelItem => modelItem.games.Items[i].Year)</td>
+                <td>@Html.DisplayFor(modelItem => modelItem.games.Items[i].executableFileName)</td>
+                <td>@Html.DisplayFor(modelItem => modelItem.games.Items[i].executableFileSize) KB</td>
+            </tr>
+
+        }
+
+    }
+
+
+</table>
+
+
+
+
+
+
+
+<style>
+    th {
+        text-align: center;
+    }
+</style>

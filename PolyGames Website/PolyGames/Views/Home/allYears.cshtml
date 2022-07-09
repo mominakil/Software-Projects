@@ -1,0 +1,29 @@
+﻿@model PolyGames.Models.Games
+
+@{
+    ViewBag.Title = "allYears";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+<h2>Years</h2>
+@using (Html.BeginForm("allYears", "Home", FormMethod.Post))
+{
+    var i = 0;
+<table>
+    @for (i = 0; i < Model.Items.Count(); i++)
+    {
+
+            <tr>
+                <td>
+                    <div id="mydiv">
+                        <h2>@Html.ActionLink(Model.Items[i].Year.ToString(), "GamesByYear", new { Year = Model.Items[i].Year })</h2>
+                    </div>
+                </td>
+            </tr>
+
+        //This is an empty row to create a space in between each game
+        }
+</table>
+}
