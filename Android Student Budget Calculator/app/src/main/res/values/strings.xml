@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Student Budget Calculator</string>
+
+    <string name="menu_quit">Quit</string>
+    <string name="menu_Expense_Accept">Expenses</string>
+
+    <string name="budget_Summary">Budget Summary</string>
+    <string name="budget_monthly">Monthly Budget</string>
+    <string name="budget_income">Income:</string>
+    <string name="budget_earnings">Earnings: $</string>
+    <string name="budget_loans">Loans: $</string>
+    <string name="budget_totalIncome">Total Income: $</string>
+    <string name="budget_expenses">Expenses:</string>
+    <string name="budget_calculateExpensesButton">Calculate Expenses</string>
+    <string name="budget_totalExpenses">Total Expenses: $</string>
+    <string name="budget_surplusShortfall">Surplus/Shortfall: $</string>
+
+
+    <string name="expense_enterExpenseAmt">Enter Expense Amounts</string>
+    <string name="expense_amountsAre">Amounts are: </string>
+    <string name="expense_MonthlyRB">Monthly</string>
+    <string name="expense_AnnualRB">Annual</string>
+    <string name="expense_HousingUtilities">Housing/Utilities Cost:</string>
+    <string name="expense_rent">Rent: $</string>
+    <string name="expense_utilities">Utilities: $</string>
+    <string name="expense_internet">Internet: $</string>
+    <string name="expense_phone">Phone: $</string>
+    <string name="expense_totalHousingCosts">Total Housing Costs: $</string>
+    <string name="expense_educationCost">Education Cost:</string>
+
+    <string name="expense_Tuition">Tuition: $</string>
+    <string name="expense_Books">Books: $</string>
+    <string name="expense_OtherFees">Other Fees: $</string>
+    <string name="expense_TotalEducationCost">Total Education Cost: $</string>
+    <string name="expense_TotalExpenses">Total Expenses: $</string>
+    <string name="expense_AcceptButton">Accept</string>
+
+</resources>

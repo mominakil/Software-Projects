@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/MonthlyAnnualLayout"
+        android:layout_width="411dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="76dp"
+        android:background="@color/lite_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioGroup
+            android:id="@+id/AnnualMonthlyRadioGrp"
+            android:layout_width="401dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/lite_blue"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:id="@+id/monthlyRadioButton"
+                android:layout_width="163dp"
+                android:layout_height="wrap_content"
+                android:text="@string/expense_MonthlyRB"
+                android:textStyle="bold"
+                tools:layout_conversion_absoluteHeight="48dp"
+                tools:layout_conversion_absoluteWidth="119dp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="112dp" />
+
+            <RadioButton
+                android:id="@+id/annualRadioButton"
+                android:layout_width="173dp"
+                android:layout_height="wrap_content"
+                android:text="@string/expense_AnnualRB"
+                android:textStyle="bold"
+                tools:layout_conversion_absoluteHeight="34dp"
+                tools:layout_conversion_absoluteWidth="117dp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="160dp" />
+        </RadioGroup>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/EnterExpenseAmtText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="@string/expense_enterExpenseAmt"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/HousingUtilitiesLayout"
+        android:layout_width="414dp"
+        android:layout_height="211dp"
+        android:layout_marginTop="136dp"
+        android:background="@color/lite_green"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/totalHousingCostTextView"
+            android:layout_width="132dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="236dp"
+            android:layout_marginTop="164dp"
+            android:background="@color/lite_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/phoneEditText"
+            android:layout_width="104dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="144dp"
+            android:background="@color/lite_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/internetEditText"
+            android:layout_width="104dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="116dp"
+            android:background="@color/lite_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <EditText
+            android:id="@+id/utilitiesEditText"
+            android:layout_width="104dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="88dp"
+            android:background="@color/lite_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/TotalHousingCostText"
+            android:layout_width="193dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="164dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/expense_totalHousingCosts"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/HousingUtilitiesText"
+            android:layout_width="229dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="16dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/expense_HousingUtilities"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/rentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="60dp"
+            android:text="@string/expense_rent"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/utilitiesTextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="88dp"
+            android:text="@string/expense_utilities"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/internetTextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="116dp"
+            android:text="@string/expense_internet"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/phoneTextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="144dp"
+            android:text="@string/expense_phone"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/rentEditText"
+            android:layout_width="104dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="60dp"
+            android:background="@color/lite_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/EducationCostsLayout"
+        android:layout_width="411dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="348dp"
+        android:background="@color/lite_orange"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/booksEditText"
+            android:layout_width="103dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="64dp"
+            android:background="@color/lite_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tuitionTextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="36dp"
+            android:text="@string/expense_Tuition"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/booksTextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="64dp"
+            android:text="@string/expense_Books"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/otherFeesTextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="92dp"
+            android:text="@string/expense_OtherFees"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/TotalEducationCostsText"
+            android:layout_width="208dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="112dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/expense_TotalEducationCost"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/totalEducationCostsTextView"
+            android:layout_width="132dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="240dp"
+            android:layout_marginTop="108dp"
+            android:background="@color/lite_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/tuitionEditText"
+            android:layout_width="103dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="36dp"
+            android:background="@color/lite_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <EditText
+            android:id="@+id/otherFeesEditText"
+            android:layout_width="104dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="88dp"
+            android:background="@color/lite_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/EducationCostText"
+            android:layout_width="148dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/expense_educationCost"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/totalExpensesLayout"
+        android:layout_width="410dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="496dp"
+        android:background="@color/yellow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/expenses_TotalExpensesTextView"
+            android:layout_width="132dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="240dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/lite_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/TotalExpensesText"
+            android:layout_width="181dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/expense_TotalExpenses"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/AcceptButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="556dp"
+        android:text="@string/expense_AcceptButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/amountsAreTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:text="@string/expense_amountsAre"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

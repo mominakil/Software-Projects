@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Weather Dashboard</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="weather.css" rel="stylesheet" />
+    <script src="weather.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row border">
+            <div id="header" class="col-12">
+                <h1>Weather Dashboard: </h1>
+                    <form> <!-- This part is for header where it shows Date and Temprature selection -->
+                    <label for="Date"><b>Date:</b></label>
+                    <input type="text" id="DateTextBox" name="DateTextBox" value=""/><br />
+                    <input type="radio" id="Celsius" name="Temprature" onchange="PerformSearch()" />
+                    <label for="Celsius">Celsius</label>
+                    <input type="radio" id="Fahrenheit" name="Temprature" onchange="PerformSearch()" />
+                    <label for="Fahrenheit">Fahrenheit</label>
+                </form>
+            </div>
+        </div>
+        <div class="row border">
+            <div id="LeftBox" class="col-sm-12 col-md-6 col-lg-6 border">
+                <form>
+                    <br />
+                    <!-- This part is for left box of City input preference  with current and hourly weather-->
+                    <label for="City1">City: </label>
+                    <input type="text" id="City1" name="City1" onblur="PerformSearch()" /><br />
+                    <label for="CurrentWeather1"><b> Current Weather: </b></label>
+                    <p id="CurrentWeather1"></p><br />
+                    <label for="HourlyWeather1"><b> Hourly Weather: </b></label>
+                    <p id="HourlyWeather1"></p>
+                </form>
+            </div>
+            <div id="RightBox" class="col-sm-12 col-md-6 col-lg-6 border">
+                <form>
+                    <br />
+                    <!-- This part is for Right box of City input preference  with current and hourly weather-->
+                    <label for="City2">City: </label>
+                    <input type="text" id="City2" name="City2" onblur="PerformSearch()" /><br />
+                    <label for="CurrentWeather2"><b>Current Weather: </b></label>
+                    <p id="CurrentWeather2"></p><br />
+                    <label for="HourlyWeather2"><b>Hourly Weather: </b></label>
+                    <p id="HourlyWeather2"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
